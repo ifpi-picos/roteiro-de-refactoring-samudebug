@@ -10,7 +10,8 @@ function gerarFaturaStr (fatura, pecas) {
   
     for (let apre of fatura.apresentacoes) {
       const peca = pecas[apre.id];
-      let total = 0;
+      function calcularTotalApresentacao(apre, peca) {
+        let total = 0;
   
       switch (peca.tipo) {
       case "tragedia":
@@ -29,6 +30,10 @@ function gerarFaturaStr (fatura, pecas) {
       default:
           throw new Error(`Peça desconhecia: ${peca.tipo}`);
       }
+      return total;
+      }
+
+      const total = calcularTotalApresentacao(apre, peca);
   
       // créditos para próximas contratações
       creditos += Math.max(apre.audiencia - 30, 0);
